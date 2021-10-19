@@ -11,6 +11,7 @@ parsii sen JavaScript-olioksi ja sijoittaa olion request:in kenttään body
 */
 app.use(express.json());
 app.use(cors());
+app.use(express.static('build'));
 
 morgan.token('hannu',
 (request, response) => {
