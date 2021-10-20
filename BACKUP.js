@@ -12,13 +12,12 @@ app.use(express.static('build'));
 const Person = require('./models/person');
 
 morgan.token('hannu',
-	(request) => {	// , response
-		
-		if(request.method !== 'POST')
-			return null;
+  (request) => {
+    if(request.method !== 'POST')
+      return null;
 
-		return JSON.stringify(request.body);
-	}
+    return JSON.stringify(request.body);
+  }
 );
 
 app.use(morgan('tiny'));
@@ -32,14 +31,15 @@ app.get('/info',
 		const date = new Date();
 
 		Person.count({})
-			.then(count => {
-				response.send(
-					`<p>Phonebook has info for ${count} people</p>
-					<p>${date}</p>`
-				);
-			})
-			.catch(error => next(error));
+		.then(count => {
+			response.send(
+			`<p>Phonebook has info for ${count} people</p>
+			<p>${date}</p>`
+			);
+		})
+		.catch(error => next(error))
 	}
+
 );
 
 app.get('/api/persons',
@@ -47,10 +47,10 @@ app.get('/api/persons',
 	(request, response, next) => {
 		
 		Person.find({})
-			.then(all => {
-				response.json(all);
-			})
-			.catch(error => next(error));
+		.then(all => {
+			response.json(all);
+		})
+		.catch(error => next(error))
 	}
 
 );
@@ -60,13 +60,14 @@ app.get('/api/persons/:id',
 	(request, response, next) => {
 
 		Person.findById(request.params.id)
-			.then(person => {
-				if(person)
-					response.json(person);
-				else
-					response.status(404).send({error: `could not find person with id ${request.params.id}`});
-			})
-			.catch(error => next(error));
+		.then(person => {
+			if(person)
+				response.json(person);
+			else
+				response.status(404).send({error: `could not find person with id ${request.params.id}`});
+		})
+		.catch(error => next(error))
+		
 	}
 	
 );
@@ -84,11 +85,11 @@ app.put('/api/persons/:id',
 		const update = { number: request.body.number };
 
 		Person.findOneAndUpdate(filter, update, {new:true})
-			.then(result => {
-				console.log(result);
-				response.json(result);
-			})
-			.catch(error => next(error));
+		.then(result => {
+			console.log(result);
+			response.json(result);
+		})
+		.catch(error => next(error))
 	}
 );
 
@@ -109,12 +110,12 @@ app.post('/api/persons',
 		});
 
 		newPerson.save()
-			.then(saved => {
-				response.json(saved);
-			})
-			.catch(error => {
-				next(error);
-			});
+		.then(saved => {
+			response.json(saved);
+		})
+		.catch(error => {
+			next(error);
+		});
 	}
 
 );
@@ -123,19 +124,19 @@ app.delete('/api/persons/:id',
 	
 	(request, response, next) => {
 		Person.deleteOne({_id:request.params.id})
-			.then( () => {	// result =>
-				response.status(204).end();
-			})
-			.catch(error => next(error));
+		.then( result => {
+			response.status(204).end();
+		})
+		.catch(error => next(error))
 	}
 	
 );
 
 const unknownEndpoint = (request, response) => {
-	response.status(404).send({ error: 'unknown endpoint' });
-};
+	response.status(404).send({ error: 'unknown endpoint' })
+}
   
-app.use(unknownEndpoint);
+app.use(unknownEndpoint)
 
 const handleErrors = (error, request, response, next) => {
 
@@ -147,7 +148,7 @@ const handleErrors = (error, request, response, next) => {
 		return response.status(400).send({error: error.message});
 	
 	next(error);
-};
+}
 
 app.use(handleErrors);
 

@@ -9,8 +9,8 @@ jos haluat tarkastella tietokantaa, jätä lisättävän henkilön tiedot pois (
 console.clear();
 
 if(process.argv.length < 3) {
-	console.log("*****TOO FEW ARGUMENTS*****");
-    return process.exit;
+	console.log('*****TOO FEW ARGUMENTS*****');
+	return process.exit;
 }
 
 const mongoose = require('mongoose');
@@ -22,7 +22,7 @@ const personSchema =  new mongoose.Schema(
 	}
 );
 
-const database = "phonebook";
+const database = 'phonebook';
 const password = process.argv[2];
 
 const Person = mongoose.model('Person', personSchema);
@@ -32,23 +32,23 @@ const url =
 
 if(process.argv[2] && !process.argv[3])		// Haetaan nimet ja tulostetaan ne komentoriville
 {
-	console.log("Fetching phonebook . . . ")
+	console.log('Fetching phonebook . . . ');
 	mongoose.connect(url);
 	
 	Person.find({})
-	.then(result => {
-		console.clear();
-		console.log("phonebook:");
-		result.forEach(_person => {
-			console.log(`${_person.name} ${_person.number}`);
-		})
-		
-		mongoose.connection.close();
-	});
+		.then(result => {
+			console.clear();
+			console.log('phonebook:');
+			result.forEach(_person => {
+				console.log(`${_person.name} ${_person.number}`);
+			});
+			
+			mongoose.connection.close();
+		});
 }
 else if (process.argv[3] && process.argv[4])	// Lisätään henkilö puhelinluetteloon
 {
-	console.log("Adding . . .")
+	console.log('Adding . . .');
 	mongoose.connect(url);
 	
 	const person = new Person(
@@ -59,12 +59,12 @@ else if (process.argv[3] && process.argv[4])	// Lisätään henkilö puhelinluet
 	);
 	
 	person.save()
-	.then( response => {
-		console.log(`Added ${process.argv[3]} ${process.argv[4]} to phonebook`);
-		mongoose.connection.close();
-	});
+		.then( () => {	// response =>
+			console.log(`Added ${process.argv[3]} ${process.argv[4]} to phonebook`);
+			mongoose.connection.close();
+		});
 }
 else
 {
-	console.log("*****MISSING NUMBER*****");
+	console.log('*****MISSING NUMBER*****');
 }
