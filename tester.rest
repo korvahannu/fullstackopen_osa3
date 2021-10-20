@@ -1,7 +1,5 @@
-POST http://localhost:3001/api/persons
-Content-Type: application/json
 
-{
-    "name": "kaapo 4v",
-    "number": "12345-12345"
-}
+
+//GET http://localhost:3001/api/persons/
+
+DELETE http://localhost:3001/api/persons/616fcf791f97d98362d6555c
