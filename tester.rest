@@ -2,4 +2,13 @@
 
 //GET http://localhost:3001/api/persons/
 
-DELETE http://localhost:3001/api/persons/616fcf791f97d98362d6555c
+//DELETE http://localhost:3001/api/persons/616fcf791f97d98362d6555c
+
+
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "name": "Hannu",
+    "number": "555-testimake"
+}
