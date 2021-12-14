@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     if: "!contains(toJson(github.event.commits.*.message), '#skip') && github.event_name == 'push'"
     steps:
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
@@ -34,7 +35,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
       - name: Deploy to heroku
-        uses: actions/checkout@v2
         uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
