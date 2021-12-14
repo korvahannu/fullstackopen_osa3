@@ -44,10 +44,10 @@ app.get('/info',
 
 app.get('/health',
 
-	(request, response, next) => {
-		response.send('ok')
-	}
-	
+  (request, response) => {
+    response.send('ok')
+  }
+
 )
 
 app.get('/api/persons',

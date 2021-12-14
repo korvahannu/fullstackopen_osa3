@@ -42,6 +42,14 @@ app.get('/info',
   }
 )
 
+app.get('/health',
+
+  (request, response, next) => {
+    response.send('ok')
+  }
+
+)
+
 app.get('/api/persons',
 
   (request, response, next) => {
