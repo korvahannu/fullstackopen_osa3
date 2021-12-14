@@ -38,7 +38,7 @@ jobs:
         uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "heroku-pokedex" #Must be unique in Heroku
+          heroku_app_name: "fstack3-hannukorvala" #Must be unique in Heroku
           heroku_email: "hannu.s.korvala@gmail.com"
           healthcheck: "https://fstack3-hannukorvala.herokuapp.com/health"
           checkstring: "ok"
