@@ -29,6 +29,7 @@ jobs:
           command: npm run test:e2e
           start: npm run start
           wait-on: http://localhost:5000
+      - uses: actions/checkout@v2
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@eca2b69f9e2c24be7decccd0f15fdb1ea5906598
         env:
